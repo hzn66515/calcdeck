@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CalcDeck — Amazon FBA Profit Calculator 2026 (Free, No Upload)</title>
+<meta name="description" content="Free Amazon FBA profit calculator with 2026 US rates: FBA fulfillment fees, referral fee, monthly & peak storage fees, fuel surcharge, break-even price and margin — instant results, nothing uploaded. Plus an advanced simulator for storage planning, EU/UK/JP marketplaces and restock forecasting.">
+<link rel="canonical" href="https://hzl666.fun/">
+<meta property="og:title" content="CalcDeck — Amazon FBA Profit Calculator 2026 (US Rates)">
+<meta property="og:description" content="Estimate FBA fulfillment, referral, storage and ad costs — see profit per unit, margin and break-even price instantly. 2026 US rate card.">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"CalcDeck — Amazon FBA Profit Calculator 2026","applicationCategory":"BusinessApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Estimate Amazon FBA fulfillment, referral and storage fees for the US marketplace with 2026 rates, and see per-unit profit, margin and break-even price."}
+</script>
+<style>
+:root{--bg:#0f1115;--card:#181c24;--line:#2a3040;--tx:#e8ebf0;--dim:#9aa3b2;--acc:#4f8cff;--ok:#3fbf7f;--warn:#e6a23c}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--tx);font:15px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;padding:24px;max-width:960px;margin:0 auto}
+h1{font-size:26px;margin-bottom:6px}
+h2{font-size:18px;margin:26px 0 10px;color:var(--acc)}
+.sub{color:var(--dim);margin-bottom:18px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;margin-bottom:14px}
+label{display:block;color:var(--dim);font-size:13px;margin:8px 0 3px}
+input,select{width:100%;background:#0b0e13;color:var(--tx);border:1px solid var(--line);border-radius:8px;padding:9px 11px;font-size:15px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+button{background:var(--acc);color:#fff;border:0;border-radius:8px;padding:11px 18px;font-size:15px;cursor:pointer;margin-top:14px;width:100%}
+.res{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:16px}
+.kpi{background:#0b0e13;border:1px solid var(--line);border-radius:10px;padding:10px}
+.kpi b{display:block;font-size:20px}
+.kpi span{color:var(--dim);font-size:12px}
+.pos{color:var(--ok)}.neg{color:#ff6b6b}
+table{width:100%;border-collapse:collapse;font-size:14px;margin-top:10px}
+td{padding:5px 4px;border-bottom:1px solid var(--line)}
+td:last-child{text-align:right;font-variant-numeric:tabular-nums}
+.tot td{font-weight:700;border-top:2px solid var(--line)}
+a{color:var(--acc)}
+.note{color:var(--dim);font-size:13px;margin-top:12px}
+footer{margin-top:36px;border-top:1px solid var(--line);padding-top:14px;color:var(--dim);font-size:13px}
+</style>
+</head>
+<body>
+<div style="letter-spacing:.14em;color:var(--acc);font-weight:700;font-size:13px">CALCDECK</div>
+<h1>Amazon FBA Profit Calculator (2026 US Rates)</h1>
+<div class="sub">Fulfillment + referral + storage + ad costs → <b>profit per unit, margin and break-even price</b>. Runs entirely in your browser — nothing is uploaded.</div>
+
+<div class="card">
+  <div class="grid">
+    <div><label>Sale price ($)</label><input type="number" id="price" value="29.99" step="0.01"></div>
+    <div><label>Product cost / unit ($)</label><input type="number" id="cost" value="6.50" step="0.01"></div>
+    <div><label>Inbound shipping / unit ($)</label><input type="number" id="inbound" value="2.20" step="0.01"></div>
+    <div><label>Category</label>
+      <select id="cat"><option value="standard">Standard</option><option value="apparel">Apparel</option></select>
+    </div>
+  </div>
+  <div class="grid" style="margin-top:10px">
+    <div><label>Length (in)</label><input type="number" id="L" value="10" step="0.1"></div>
+    <div><label>Width (in)</label><input type="number" id="W" value="6" step="0.1"></div>
+    <div><label>Height (in)</label><input type="number" id="H" value="2" step="0.1"></div>
+    <div><label>Unit weight (lb)</label><input type="number" id="wt" value="0.8" step="0.05"></div>
+  </div>
+  <div class="grid" style="margin-top:10px">
+    <div><label>Referral %</label><input type="number" id="ref" value="15" step="0.1"></div>
+    <div><label>Ad spend / unit ($)</label><input type="number" id="ads" value="2.00" step="0.01"></div>
+    <div><label>Ships during peak?</label>
+      <select id="peak"><option value="no">No (regular rates)</option><option value="yes">Yes (Oct 15 – Jan 14)</option></select>
+    </div>
+    <div><label>Storage months / unit</label><input type="number" id="months" value="1" step="0.5"></div>
+  </div>
+  <button onclick="calc()">Calculate profit</button>
+  <div id="out"></div>
+</div>
+
+<h2>How FBA fees are calculated (2026 US)</h2>
+<p>This calculator uses the 2026 US rate card: fulfillment fees by weight bracket and price band (under $10 / $10–$50 / over $50, standard vs apparel), a dimensional weight divisor of <b>139 in³/lb</b>, monthly storage of <b>$0.78/cu ft</b> (standard, off-peak) or <b>$2.40/cu ft</b> in Q4 peak, a <b>3.5%</b> fuel &amp; logistics surcharge on fulfillment (effective 2026-04-17), and the average <b>$0.32</b> peak fulfillment surcharge for shipments arriving Oct 15, 2026 – Jan 14, 2027. Oversize items use the segment table (50/70/150 lb breakpoints).</p>
+
+<h2>Beyond this calculator</h2>
+<p>Need storage-fee simulation across 12 months, restock &amp; FIFO planning, inventory-utilization surcharges, or Canada / Mexico / EU / UK / Japan marketplaces? The <a href="https://biblobi.github.io/LT-TOOL/" rel="nofollow">advanced simulator</a> includes a monthly storage &amp; restock planner, per-product saving and comparison, CSV export — all free, all in your browser. (UI currently in Chinese; an English interface is in progress.)</p>
+
+<h2>FAQ</h2>
+<p><b>Does Amazon charge storage per cubic foot?</b> Yes — monthly storage is charged per cubic foot, and the rate roughly triples in Q4 for standard-size items ($0.78 → $2.40 in this 2026 rate set), so Q4 storage can quietly erase margin on bulky, slow-moving products.</p>
+<p><b>What is billable weight?</b> Amazon charges fulfillment on the greater of actual weight and dimensional weight (L × W × H ÷ 139 for US standard sizes). Light but bulky products pay on dimensional weight.</p>
+<p><b>What referral fee does Amazon take?</b> Most categories pay 15% of the sale price (minimum $0.30). This calculator defaults to 15% — adjust it for your category.</p>
+<p><b>Is this an official Amazon tool?</b> No — it's an independent estimator. Fees are estimates; final charges appear in Seller Central reports.</p>
+
+<footer><b>CalcDeck</b> · free in-browser seller calculators · Rates updated Sep 2026 · Estimates only, not affiliated with Amazon · <a href="https://biblobi.github.io/LT-TOOL/" rel="nofollow">Advanced simulator</a></footer>
+
+<script>
+"use strict";
+const $=id=>document.getElementById(id);
+const STOR={standard:{reg:0.78,peak:2.40},oversize:{reg:0.56,peak:1.40}};
+const BRAK={
+ standard:{under10:{b:[[.25,2.91],[.5,3.13],[.75,3.38],[1,3.78],[1.5,4.60],[2,5.00],[2.5,5.28],[3,5.85]],o3:[6.15,3,.5,.16]},
+           mid:{b:[[.25,3.68],[.5,3.98],[.75,4.28],[1,4.75],[1.5,5.37],[2,5.68],[2.5,5.98],[3,6.28]],o3:[6.58,3,.5,.38]},
+           over50:{b:[[.25,3.68],[.5,3.98],[.75,4.28],[1,4.75],[1.5,5.37],[2,5.68],[2.5,5.98],[3,6.28]],o3:[6.58,3,.5,.38]}},
+ apparel:{under10:{b:[[.25,3.48],[.5,3.68],[.75,3.90],[1,4.35],[1.5,5.22],[2,5.43],[2.5,5.90],[3,6.08]],o3:[6.15,3,.5,.16]},
+           mid:{b:[[.25,4.30],[.5,4.50],[.75,4.72],[1,5.17],[1.5,6.04],[2,6.25],[2.5,6.72],[3,6.90]],o3:[6.97,3,.5,.16]},
+           over50:{b:[[.25,4.56],[.5,4.76],[.75,4.98],[1,5.43],[1.5,6.30],[2,6.51],[2.5,6.98],[3,7.16]],o3:[6.97,3,.5,.16]}}};
+const OVERSEG={standard:{under10:[[50,25.56,1,.38],[70,36.55,51,.75],[150,50.55,71,.75],[1e9,194.18,151,.19]],
+ mid:[[50,26.33,1,.38],[70,40.12,51,.75],[150,54.81,71,.75],[1e9,194.45,151,.19]],
+ over50:[[50,26.33,1,.38],[70,40.12,51,.75],[150,54.81,71,.75],[1e9,194.45,151,.19]]},
+ apparel:{under10:[[50,25.56,1,.38],[70,36.55,51,.75],[150,50.55,71,.75],[1e9,194.18,151,.19]],
+ mid:[[50,26.33,1,.38],[70,37.32,51,.75],[150,51.32,71,.75],[1e9,194.95,151,.19]],
+ over50:[[50,26.33,1,.38],[70,37.32,51,.75],[150,51.32,71,.75],[1e9,194.95,151,.19]]}};
+const FUEL=0.035, PEAKSC=0.32, DIV=139;
+
+function fulfillment(price,cat,peak){
+  const band=price<10?"under10":price<=50?"mid":"over50";
+  const L=+$("#L").value||0,W=+$("#W").value||0,H=+$("#H").value||0,w=+$("#wt").value||0;
+  const dim=(L*W*H)/DIV, bill=Math.max(w,dim);
+  const oversize=L>18||W>14||H>8||w>20;
+  const c=cat==="apparel"?BRAK.apparel:BRAK.standard;
+  let fee,kind;
+  if(oversize){
+    const segs=(OVERSEG[cat]&&OVERSEG[cat][band])||OVERSEG.standard[band];
+    for(const[max,base,st,inc]of segs){ if(bill<=max){fee=base+Math.max(0,Math.ceil(bill-st))*inc;break;} }
+    kind="oversize";
+  }else{
+    const g=c[band],bw=Math.ceil(bill*4)/4;
+    const hit=g.b.find(x=>bw<=x[0]);
+    if(hit){fee=hit[1];}
+    else{const [,o3base,o3start,step,inc]=g.o3;fee=o3base+Math.ceil((bw-o3start)/step)*inc;}
+    kind="standard";
+  }
+  fee*=1+FUEL;
+  if(peak==="yes")fee+=PEAKSC;
+  return{fee,kind,dim,bill};
+}
+function calc(){
+  const price=+$("#price").value||0, ref=(+$("#ref").value||0)/100;
+  const peak=$("#peak").value==="yes", months=+$("#months").value||1;
+  const L=+$("#L").value||0,W=+$("#W").value||0,H=+$("#H").value||0;
+  const f=fulfillment(price,$("#cat").value,peak);
+  const cuft=(L*W*H)/1728;
+  const sz=cuft>1?"oversize":"standard";
+  const stor=STOR[sz][peak?"peak":"reg"]*Math.max(cuft,0.05)*months;
+  const referral=price*ref<0.30?0.30:price*ref;
+  const product=+$("#cost").value||0, inbound=+$("#inbound").value||0, ads=+$("#ads").value||0;
+  const fees=referral+f.fee+stor;
+  const profit=price-product-inbound-ads-fees;
+  const margin=price>0?profit/price*100:0;
+  const fixed=product+inbound+ads+f.fee+stor;
+  const be=(fixed)/(1-ref<0.05?0.95:1-ref);
+  const rows=[["Referral fee",referral],["FBA fulfillment (incl. 3.5% fuel"+(peak?" + $0.32 peak":"")+")",f.fee],
+    [`Monthly storage (${sz}, ${cuft.toFixed(2)} cu ft × ${months} mo)`,stor],
+    ["Total Amazon fees",fees],["Your product cost",product],["Inbound shipping",inbound],["Ad spend / unit",ads]];
+  $("#out").innerHTML=`
+   <div class="res">
+    <div class="kpi"><b class="${profit>=0?'pos':'neg'}">$${profit.toFixed(2)}</b><span>Profit / unit</span></div>
+    <div class="kpi"><b class="${margin>=0?'pos':'neg'}">${margin.toFixed(1)}%</b><span>Margin</span></div>
+    <div class="kpi"><b>$${be.toFixed(2)}</b><span>Break-even price</span></div>
+    <div class="kpi"><b>${f.kind}</b><span>Size tier (dim wt ${f.dim.toFixed(2)} lb)</span></div>
+   </div>
+   <table>${rows.map(r=>`<tr><td>${r[0]}</td><td>$${r[1].toFixed(2)}</td></tr>`).join("")}
+   <tr class="tot"><td>Price</td><td>$${price.toFixed(2)}</td></tr></table>
+   <p class="note">Estimates for planning. Final charges appear in Seller Central. Rates: US 2026 card, updated Sep 2026.</p>`;
+}
+calc();
+</script>
+</body>
+</html>
