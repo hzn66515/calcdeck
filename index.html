@@ -23,11 +23,15 @@ h2{font-size:18px;margin:26px 0 10px;color:var(--acc)}
 label{display:block;color:var(--dim);font-size:13px;margin:8px 0 3px}
 input,select{width:100%;background:#0b0e13;color:var(--tx);border:1px solid var(--line);border-radius:8px;padding:9px 11px;font-size:15px}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
-button{background:var(--acc);color:#fff;border:0;border-radius:8px;padding:11px 18px;font-size:15px;cursor:pointer;margin-top:14px;width:100%}
+button{background:var(--acc);color:#fff;border:0;border-radius:8px;padding:11px 18px;font-size:15px;cursor:pointer;margin-top:14px;width:100%;transition:transform .08s,filter .15s}
 .res{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:16px}
 .kpi{background:#0b0e13;border:1px solid var(--line);border-radius:10px;padding:10px}
 .kpi b{display:block;font-size:20px}
 .kpi span{color:var(--dim);font-size:12px}
+button:hover{filter:brightness(1.08)}
+button:active{transform:scale(.985);filter:brightness(.82)}
+@keyframes kpiFlash{0%{background:#22406b}70%{background:#16304f}100%{background:#0b0e13}}
+.kpi.flash{animation:kpiFlash .9s ease-out}
 .pos{color:var(--ok)}.neg{color:#ff6b6b}
 table{width:100%;border-collapse:collapse;font-size:14px;margin-top:10px}
 td,th{padding:5px 4px;border-bottom:1px solid var(--line);text-align:left}
@@ -212,6 +216,7 @@ function fmtRows(r){
    ["Your product cost",r.product],["Inbound shipping",r.inbound],["Ad spend / unit",r.ads]]
    .map(x=>`<tr><td>${x[0]}</td><td>$${x[1].toFixed(2)}</td></tr>`).join("");
 }
+function flash(el){el.querySelectorAll(".kpi").forEach(k=>{k.classList.remove("flash");void k.offsetWidth;k.classList.add("flash");});}
 function calc(){
   const r=compute();
   $("#out").innerHTML=`
@@ -223,6 +228,7 @@ function calc(){
    </div>
    <table>${fmtRows(r)}<tr class="tot"><td>Price</td><td>$${r.price.toFixed(2)}</td></tr></table>
    <p class="note">Estimates for planning. Final charges appear in Seller Central. Rates: US 2026 card, updated Sep 2026.</p>`;
+  flash($("#out"));$("#out").scrollIntoView({behavior:"smooth",block:"nearest"});
   adcalc();
 }
 function adcalc(){
@@ -238,6 +244,7 @@ function adcalc(){
     <div class="kpi"><b>$${maxCpc.toFixed(2)}</b><span>Max CPC at ${$("#cvr").value||0}% CVR</span></div>
    </div>
    <p class="note">Contribution after all non-ad costs: $${r.contrib.toFixed(2)}/unit. Any ACOS below break-even is profitable; max CPC is where ads stop losing money.</p>`;
+  flash($("#adout"));
 }
 $("#unit").addEventListener("change",unitChanged);
 calc();

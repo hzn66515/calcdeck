@@ -3,7 +3,7 @@ import {readFileSync} from 'node:fs';
 const html=readFileSync('index.html','utf8');
 const js=[...html.matchAll(/<script>([\s\S]*?)<\/script>/g)][0][1];
 const ids=[...html.matchAll(/id="([^"]+)"/g)].map(m=>m[1]);
-const elems={}; for(const id of ids) elems[id]={value:"",innerHTML:"",addEventListener(){},click(){},classList:{add(){},remove(){}}};
+const elems={}; for(const id of ids) elems[id]={value:"",innerHTML:"",addEventListener(){},click(){},classList:{add(){},remove(){}},querySelectorAll:()=>({forEach(){}}),scrollIntoView(){}};
 globalThis.document={ getElementById:(id)=>{if(!(id in elems))throw new Error("getElementById null: "+id);return elems[id];},
   querySelector:(sel)=>{if(sel.startsWith("."))return{textContent:""};const id=sel.replace(/^#/,"");if(!(id in elems))throw new Error("querySelector null: "+sel);return elems[id];},
   querySelectorAll:()=>({forEach(){}})};
