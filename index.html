@@ -36,6 +36,13 @@ a{color:var(--acc)}
 .note{color:var(--dim);font-size:13px;margin-top:12px}
 footer{margin-top:36px;border-top:1px solid var(--line);padding-top:14px;color:var(--dim);font-size:13px}
 </style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"Does Amazon charge FBA storage per cubic foot?","acceptedAnswer":{"@type":"Answer","text":"Yes. In 2026 the US monthly rate is $0.78 per cubic foot for standard-size items (Jan-Sep) and $2.40 per cubic foot in the Q4 peak (Oct-Dec). Oversize is $0.56 / $1.40."}},
+{"@type":"Question","name":"What is billable weight for FBA fulfillment fees?","acceptedAnswer":{"@type":"Answer","text":"Amazon charges on the greater of actual weight and dimensional weight (length x width x height divided by 139 for US standard sizes)."}},
+{"@type":"Question","name":"What referral fee does Amazon take?","acceptedAnswer":{"@type":"Answer","text":"Most categories pay 15% of the sale price with a $0.30 minimum. Adjust the referral percentage in the calculator for your category."}},
+{"@type":"Question","name":"Is this an official Amazon calculator?","acceptedAnswer":{"@type":"Answer","text":"No. It is an independent estimator for planning. Final charges appear in Amazon Seller Central reports."}}]}
+</script>
 </head>
 <body>
 <div style="letter-spacing:.14em;color:var(--acc);font-weight:700;font-size:13px">CALCDECK</div>
@@ -69,8 +76,32 @@ footer{margin-top:36px;border-top:1px solid var(--line);padding-top:14px;color:v
   <div id="out"></div>
 </div>
 
-<h2>How FBA fees are calculated (2026 US)</h2>
+<h2>How Amazon FBA fees are calculated in 2026 (fulfillment, referral, storage)</h2>
 <p>This calculator uses the 2026 US rate card: fulfillment fees by weight bracket and price band (under $10 / $10–$50 / over $50, standard vs apparel), a dimensional weight divisor of <b>139 in³/lb</b>, monthly storage of <b>$0.78/cu ft</b> (standard, off-peak) or <b>$2.40/cu ft</b> in Q4 peak, a <b>3.5%</b> fuel &amp; logistics surcharge on fulfillment (effective 2026-04-17), and the average <b>$0.32</b> peak fulfillment surcharge for shipments arriving Oct 15, 2026 – Jan 14, 2027. Oversize items use the segment table (50/70/150 lb breakpoints).</p>
+
+<h2>Worked example: $29.99 product, 10 × 6 × 2 in, 0.8 lb</h2>
+<p>Referral (15%): <b>$4.50</b> · Fulfillment (1 lb bracket, standard category, incl. 3.5% fuel): <b>$4.92</b> · Storage (0.07 cu ft, 1 month off-peak): <b>$0.05</b>. With a $6.50 product cost, $2.20 inbound shipping and $2.00 of ad spend, profit is <b>$9.82 per unit — a 32.7% margin</b>, and break-even lands at a <b>$18.44</b> sale price. Try your own numbers above.</p>
+
+<h2>2026 US FBA fee quick reference</h2>
+<table>
+<tr><th>Fulfillment — standard size, ≤ $10 price</th><th>Fee</th></tr>
+<tr><td>≤ 0.25 lb</td><td>$2.91</td></tr>
+<tr><td>≤ 0.5 lb</td><td>$3.13</td></tr>
+<tr><td>≤ 1 lb</td><td>$3.78</td></tr>
+<tr><td>≤ 2 lb</td><td>$5.00</td></tr>
+<tr><td>≤ 3 lb</td><td>$5.85</td></tr>
+<tr><td>&gt; 3 lb</td><td>$6.15 + $0.16 per 0.5 lb</td></tr>
+<tr><th>Fulfillment — standard size, $10–50 price</th><th>Fee</th></tr>
+<tr><td>≤ 1 lb</td><td>$4.75</td></tr>
+<tr><td>≤ 2 lb</td><td>$5.68</td></tr>
+<tr><td>≤ 3 lb</td><td>$6.28</td></tr>
+<tr><td>&gt; 3 lb</td><td>$6.58 + $0.38 per 0.5 lb</td></tr>
+<tr><th>Monthly storage (per cu ft)</th><th>Rate</th></tr>
+<tr><td>Standard · Jan–Sep</td><td>$0.78</td></tr>
+<tr><td>Standard · Oct–Dec (peak)</td><td>$2.40</td></tr>
+<tr><td>Oversize · Jan–Sep / peak</td><td>$0.56 / $1.40</td></tr>
+</table>
+<p class="note">Apparel categories pay slightly different fulfillment rates; oversize uses weight-segment tables. All rates shown are the 2026 US card used by the calculator above; final charges are set by Amazon Seller Central.</p>
 
 <h2>Beyond this calculator</h2>
 <p>Need storage-fee simulation across 12 months, restock &amp; FIFO planning, inventory-utilization surcharges, or Canada / Mexico / EU / UK / Japan marketplaces? The <a href="https://biblobi.github.io/LT-TOOL/" rel="nofollow">advanced simulator</a> includes a monthly storage &amp; restock planner, per-product saving and comparison, CSV export — all free, all in your browser. (UI currently in Chinese; an English interface is in progress.)</p>
