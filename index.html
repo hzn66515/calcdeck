@@ -12,7 +12,8 @@
 {"@context":"https://schema.org","@type":"WebApplication","name":"CalcDeck — Amazon FBA Profit Calculator 2026","applicationCategory":"BusinessApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Estimate Amazon FBA fulfillment, referral and storage fees for the US marketplace with 2026 rates, and see per-unit profit, margin and break-even price."}
 </script>
 <style>
-:root{--bg:#0f1115;--card:#181c24;--line:#2a3040;--tx:#e8ebf0;--dim:#9aa3b2;--acc:#4f8cff;--ok:#3fbf7f;--warn:#e6a23c}
+:root{--bg:#f5f7fa;--card:#ffffff;--input:#ffffff;--line:#d9dfe8;--tx:#1a202c;--dim:#5b6572;--acc:#2563eb;--ok:#15803d;--warn:#b45309;--flash1:#dbe7ff;--flash2:#eef3fb}
+[data-theme="dark"]{--bg:#0f1115;--card:#181c24;--input:#0b0e13;--line:#2a3040;--tx:#e8ebf0;--dim:#9aa3b2;--acc:#4f8cff;--ok:#3fbf7f;--warn:#e6a23c;--flash1:#22406b;--flash2:#16304f}
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:var(--bg);color:var(--tx);font:15px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;padding:24px;max-width:960px;margin:0 auto}
 h1{font-size:26px;margin-bottom:6px}
@@ -21,17 +22,19 @@ h2{font-size:18px;margin:26px 0 10px;color:var(--acc)}
 .brand{letter-spacing:.14em;color:var(--acc);font-weight:700;font-size:13px}
 .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;margin-bottom:14px}
 label{display:block;color:var(--dim);font-size:13px;margin:8px 0 3px}
-input,select{width:100%;background:#0b0e13;color:var(--tx);border:1px solid var(--line);border-radius:8px;padding:9px 11px;font-size:15px}
+input,select{width:100%;background:var(--input);color:var(--tx);border:1px solid var(--line);border-radius:8px;padding:9px 11px;font-size:15px}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
 button{background:var(--acc);color:#fff;border:0;border-radius:8px;padding:11px 18px;font-size:15px;cursor:pointer;margin-top:14px;width:100%;transition:transform .08s,filter .15s}
 .res{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:16px}
-.kpi{background:#0b0e13;border:1px solid var(--line);border-radius:10px;padding:10px}
+.kpi{background:var(--input);border:1px solid var(--line);border-radius:10px;padding:10px}
 .kpi b{display:block;font-size:20px}
 .kpi span{color:var(--dim);font-size:12px}
 button:hover{filter:brightness(1.08)}
 button:active{transform:scale(.985);filter:brightness(.82)}
-@keyframes kpiFlash{0%{background:#22406b}70%{background:#16304f}100%{background:#0b0e13}}
+@keyframes kpiFlash{0%{background:var(--flash1)}70%{background:var(--flash2)}100%{background:var(--input)}}
 .kpi.flash{animation:kpiFlash .9s ease-out}
+.tbtn{position:absolute;top:22px;right:24px;width:auto;margin:0;padding:6px 12px;font-size:13px;background:var(--card);color:var(--dim);border:1px solid var(--line)}
+body{transition:background .2s,color .2s}
 .pos{color:var(--ok)}.neg{color:#ff6b6b}
 table{width:100%;border-collapse:collapse;font-size:14px;margin-top:10px}
 td,th{padding:5px 4px;border-bottom:1px solid var(--line);text-align:left}
@@ -43,6 +46,7 @@ footer{margin-top:36px;border-top:1px solid var(--line);padding-top:14px;color:v
 </style>
 </head>
 <body>
+<button id="themeBtn" class="tbtn" type="button">🌙 Dark</button>
 <div class="brand">CALCDECK</div>
 <h1>Amazon FBA Profit Calculator (2026 US Rates)</h1>
 <div class="sub">Fulfillment + referral + storage + returns + ad costs → <b>profit per unit, margin, break-even price, break-even ACOS and max CPC</b>. Runs entirely in your browser — nothing is uploaded.</div>
@@ -247,6 +251,11 @@ function adcalc(){
   flash($("#adout"));
 }
 $("#unit").addEventListener("change",unitChanged);
+const tBtn=$("#themeBtn");
+function applyTheme(t){document.documentElement.dataset.theme=t;tBtn.textContent=t==="dark"?"☀️ Light":"🌙 Dark";}
+let savedTheme=null;try{savedTheme=localStorage.getItem("calcdeck-theme")}catch(e){}
+applyTheme(savedTheme==="dark"?"dark":"light");
+tBtn.addEventListener("click",()=>{const t=document.documentElement.dataset.theme==="dark"?"light":"dark";applyTheme(t);try{localStorage.setItem("calcdeck-theme",t)}catch(e){}});
 calc();
 </script>
 </body>
